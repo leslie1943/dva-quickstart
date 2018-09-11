@@ -106,7 +106,7 @@ class TodoList extends Component{
                                         <span style={{width:'20px'}}></span>
 
                                         <Input
-                                            style={{borderWidth:1,borderColor: '#98A3AE',width:'300px'}}
+                                            style={{borderWidth:1,borderColor: '#98A3AE',width:'230px'}}
                                             defaultValue={item.title}
                                             autoFocus={false}
                                             onKeyDown={(e) => {

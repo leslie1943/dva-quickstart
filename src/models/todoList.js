@@ -1,5 +1,5 @@
 import queryString from 'query-string';
-// import * as todoService from '../services/todo';
+import * as todoService from '../services/todo';
 
 export default {
     namespace: 'todo',
@@ -22,12 +22,15 @@ export default {
             return {...state,list}
         }
     },
+    // effects 里的方法参数定义:
+    // 1: 前台传递的值
+    // 2: 方法类型 [ call | put | select ]
     effects:{
         // ----------- add 
         *addTodo({payload:value},{call,put,select}){
             //模拟网络请求.
-            // const data = yield call(todoService.query,value);
-            // console.log(data);
+            const data = yield call(todoService.query,value);
+            console.log(data);
 
             // 从state中获取相应的字段
             let tempList = yield select(state => state.todo.list);

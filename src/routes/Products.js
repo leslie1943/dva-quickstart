@@ -18,8 +18,6 @@ const Products = ({dispatch, products,login}) => {
     }
     return (
         <div className={styles.title}>
-            {/* <h1>{typeof login}</h1> */}
-            <h1>{JSON.stringify(login)}</h1>
             <h2>List of Products</h2>
             <ProductList onDelete={handleDelete} products={products}></ProductList>
         </div>
