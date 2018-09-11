@@ -1,4 +1,6 @@
 // import request from '../utils/request';
+// import delay from '../utils/request';
+
 
 export function query(){
     // return request('/api/todos')
@@ -6,3 +8,11 @@ export function query(){
         'result':'simulation api services...'
     }
 }
+
+// import request from '../utils/request';
+// export function query() {
+//   return request('/api/users');
+// }
+// export function login(payload){
+//   delay(payload)
+// }
