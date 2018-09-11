@@ -1,0 +1,36 @@
+export default  {
+    login:{
+      display:'flex',
+      width:'100%',
+      height:'100%',
+      justifyContent:'center',
+      alignItems:'center',
+    },
+    loginView:{
+      width:320,height:320,
+      boxShadow:'0 0 100px rgba(0,0,0,.08)',
+    },
+    loginHead:{
+      width:320,
+      height:'20%',
+      display:'flex',
+      justifyContent:'center',
+      alignItems:'flex-end',
+    },
+    loginImg:{
+      width:40,
+      marginRight:8,
+    },
+    loginText:{
+      fontSize:18
+    },
+    loginBody:{
+      height:'80%',
+      display:'flex',
+      justifyContent:'center',
+      alignItems:'center',
+    },
+    loginButton:{
+      width:'100%'
+    }
+  }
