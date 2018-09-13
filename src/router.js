@@ -4,6 +4,8 @@ import IndexPage from './routes/IndexPage';
 import Products from './routes/Products';
 import Login from './routes/Login';
 import TodoList from './routes/TodoList';
+import Count from './routes/Count';
+
 
 function RouterConfig({ history }) {
   return (
@@ -14,6 +16,7 @@ function RouterConfig({ history }) {
         {/* path: url, component: 加载的页面组件 */}
         <Route path="/products" exact component={Products} />
         <Route path="/todoList" exact component={TodoList}></Route>
+        <Route path="/count" exact component={Count}></Route>
       </Switch>
     </Router>
   );
