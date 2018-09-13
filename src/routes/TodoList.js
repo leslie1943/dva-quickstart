@@ -141,6 +141,7 @@ class TodoList extends Component{
  *      - todo: list:[]
  */
 function mapStateToProps(state){
+    // 按需加载.
     return {
         list: state.todo.list,
         // "xxx": state.xxx.xxxAttr, //允许多个对象的注入.
