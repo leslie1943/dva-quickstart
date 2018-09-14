@@ -14,6 +14,9 @@
  *  take获取发送的数据
  */
 import { routerRedux } from 'dva/router';
+import * as loginApi from '../services/login';
+import { message} from 'antd';
+
 
 // 可以替换成为 某个api的方法名,执行后台操作
 const delay = timeout => new Promise(resolve => setTimeout(resolve,timeout));
@@ -31,38 +34,50 @@ export default {
     },
     effects:{
         *login({payload},{call,put}){
-            yield put({type: 'showLoginLoading', payload:{user: payload.username,pwd: payload.password}});
+            yield put({type: 'showLoginLoading', payload});
+            console.info('......页面参数......');
+            console.info(payload);
 
             // 'delay' 可以替换成为 某个api的方法名,执行后台操作
             // 同时可以定义返回值，实现逻辑操作.
             // const res = yield call('api_method_name')
             // if(res.status){}else{}
-            yield call(delay,payload, 2000); // call 以异步的方式调用函数
-            yield put ({type: 'hideLoginLoading', payload:{user: payload.username,pwd: payload.password}});
+            // yield call(delay,payload, 2000); // call 以异步的方式调用函数
 
-            yield call(delay,payload, 2000);
-            yield put(routerRedux.push('/products'));
+            // 😃😃😃 CALL API 😃😃😃 执行后台操作,定义返回值，实现逻辑操作.
+            const res = yield call(loginApi.query,payload); // call 以异步的方式调用函数
+
+            console.info('......API结果......');
+            console.info(res.result);
+            
+            console.info('......比较......');
+            if(res.result.user === payload.username && res.result.pwd === payload.password){
+                message.success('登录成功.');
+                yield call(delay,payload, 2000);
+                yield put(routerRedux.push('/products'));
+            }else{
+                message.error('用户名密码错误.');
+            }
+            yield put ({type: 'hideLoginLoading', payload});
+            
         }
     },
     reducers:{
         showLoginLoading(state,payload){
             console.info('[In path models]:showLoginLoading');
-            console.info(state);
+            console.info('payload');
             console.info(payload);
             return {
                 loginLoading: true,
-                user: payload.user,
-                pwd: payload.pwd,
             }
         },
         hideLoginLoading(state,payload){
             console.info('[In path models]:hideLoginLoading');
-            console.info(state);
+
+            console.info('payload');
             console.info(payload);
             return {
                 loginLoading: false,
-                user: payload.user,
-                pwd: payload.pwd,
             }
         },
     }
