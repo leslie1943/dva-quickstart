@@ -1,32 +1,66 @@
-import React from 'react';
+import React,{ Component } from 'react';
 import { connect } from 'dva';
-import ProductList from '../components/ProductList';
-import styles from './Products.css';
+import { Table, Popconfirm, Button } from 'antd';
 
-// Step 1: 从models里 加载 products 和 login
-// Step 2: dispatch触发的是 models里的 effects下定义的 'delete' 函数
-// Step 3: delete函数再调用 call('asyncMethod',payload)
-// Step 4: delete函数再调用 put('methodInReducers',payload)来更新state
-const Products = ({dispatch, products,login}) => {
-    function handleDelete (id){
-        // 执行 models 文件夹下的 products下的delete方法.
-        // models/products/delete
-        dispatch({
-            type: 'products/delete',
-            payload: id,
+class Products extends Component{
+
+    onDelete(id){
+        this.props.dispatch({
+            type:'products/delete',
+            payload:{
+                id:id
+            }
         });
     }
-    return (
-        <div className={styles.title}>
-            <h2>List of Products</h2>
-            <ProductList onDelete={handleDelete} products={products}></ProductList>
-        </div>
-    );
-};
 
-/**
- * connect
- * UI里面需要用到model里面数据的话，那么可以直接用connect将model里面的元素当作props的方式传递进来
- * 从models里 加载 products 和 login 
- */
-export default connect( ({ products,login }) => ({products,login}))(Products);
+    render(){
+        const columns = [
+            {
+                title: "Id",
+                dataIndex: "id",
+            },
+            {
+                title: "Name",
+                dataIndex: "name",
+            },
+            {
+                title: "Author",
+                dataIndex: "author",
+            },
+            {
+                title: "Version",
+                dataIndex: "ver",
+            },
+            {
+                title: "Publish date",
+                dataIndex: "publishDate",
+            },
+            {
+                title:"Actions",
+                render:(text,record) =>{
+                    return (
+                        <Popconfirm title="Delete?" onConfirm={()=> this.onDelete(record.id)}>
+                            <Button type="danger">Delete</Button>
+                        </Popconfirm>
+                    );
+                }
+            }
+        ];
+        const data = this.props.products.data;
+        return (
+            <Table 
+            dataSource={data} 
+            columns={columns}>
+        </Table>
+        )
+    }
+}
+
+function mapStateToProps(state){
+    return{
+        products: state.products
+    }
+}
+const _products = connect(mapStateToProps)(Products)
+
+export default _products;
