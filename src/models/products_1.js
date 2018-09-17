@@ -51,6 +51,20 @@ export default {
             yield put({type: 'deleteRecord',payload:{data}})
             // yield put({type: 'removeRecord',payload:{data}})
             // yield put({type: 'reduceRecord',payload:{data}})
+        },
+        *addProduct({payload},{put,select}){
+            let currentList = yield select(state => state.products.data);
+            let data = [];
+            data = data.concat(currentList);
+            let tempObj = {};
+            tempObj.id = data.length + 1;
+            tempObj.key = data.length + 1;
+            tempObj.name = payload.value;
+            tempObj.author = payload.value;
+            tempObj.publishDate = '2018-01-01';
+            tempObj.ver = "v1.0";
+            data.push(tempObj);
+            yield put({type:'save',payload:{data}})
         }
     },
     reducers: { // 接收action,同步更新state.
@@ -60,6 +74,11 @@ export default {
          *      parameter______2: {payload:{data}} 显示传递 从effects里过来的参数.
          *      parameter______3: payload  实体整体传递
          */
+        save(state,{payload}){
+            return {
+                data: payload.data,
+            }
+        },
 
          // parameter______1
         deleteRecord(state,{payload}){
