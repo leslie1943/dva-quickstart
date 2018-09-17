@@ -5,3 +5,7 @@
 li{
     list-style-type:none;
 }
+hr{
+    opacity: 0.3;
+    background-color:#5aaafa;
+}

@@ -65,6 +65,11 @@ export default {
             tempObj.ver = "v1.0";
             data.push(tempObj);
             yield put({type:'save',payload:{data}})
+        },
+        *searchProduct({payload},{put,select}){
+            let currentList = yield select(state => state.products.data);
+            let data = currentList.filter(item=> item.name.indexOf(payload.query) > -1);
+            yield put({type:'save',payload:{data}})
         }
     },
     reducers: { // 接收action,同步更新state.

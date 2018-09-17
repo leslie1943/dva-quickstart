@@ -6,7 +6,8 @@ class Products extends Component{
     constructor(props){
         super(props);
         this.state = {
-            value: ''
+            value: '',
+            query:'',
         }
     }
 
@@ -31,6 +32,14 @@ class Products extends Component{
         }else{
             message.error('物品名称不能为空.');
         }
+    }
+    searchProduct(query){
+        this.props.dispatch({
+            type:'products/searchProduct',
+            payload:{
+                query:query
+            }
+        });
     }
 
     render(){
@@ -70,6 +79,8 @@ class Products extends Component{
         return (
             <div>
                <div style={{textAlign:'center',color:"#5aaafa"}}>当前有<strong>{data.length}</strong>个物品</div>
+               <hr></hr>
+               {/* ------ 添加物品 ------ */}
                 <span>
                     <h2>添加物品</h2>
                 </span>
@@ -80,6 +91,21 @@ class Products extends Component{
                 ></Input>
                 <span style={{paddingLeft:'10px'}}></span>
                 <Button type="primary" onClick={() => this.addProduct(this.state.value)}>添加</Button>
+                <hr></hr>
+
+                {/* ------ 查询物品 ------ */}
+                <span>
+                    <h2>查询物品</h2>
+                </span>
+                物品名称：
+                <Input style={{borderWidth:1,borderColor: '#5aaafa',width:'300px'}}
+                    value={this.state.query}
+                    onChange={e => this.setState({query:e.target.value})}
+                ></Input>
+                <span style={{paddingLeft:'10px'}}></span>
+                <Button type="primary" onClick={() => this.searchProduct(this.state.query)}>查询</Button>
+
+                <hr></hr>
 
                 <Table 
                     dataSource={data} 
