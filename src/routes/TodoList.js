@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import styles from './TodoList.css';
 import { connect } from 'dva';
-import { Button, Input,Checkbox,message} from 'antd';
+import { Button, Input,Checkbox,message,Icon} from 'antd';
 
 
 class TodoList extends Component{
@@ -73,6 +73,7 @@ class TodoList extends Component{
             <div className={styles.container}>
                 <span>
                     <h1>我的待办事项</h1>
+                    <h1><Icon type="gitlab" style={{color:'red'}} /></h1>
                     <h3>你有{count}项待办事项未处理</h3>
                 </span>
                 
